@@ -19,6 +19,7 @@ import Form from "components/Appointment/Form";
 import "index.scss";
 
 import Button from "components/Button";
+import { Fragment } from "react";
 
 storiesOf("Button", module)
   .addParameters({
@@ -65,18 +66,18 @@ storiesOf("Button", module)
   ];
   
   storiesOf("DayList", module)
-    .addParameters({
-      backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
-    })
-    .add("Monday", () => (
-      <DayList days={days} day={"Monday"} setDay={action("setDay")} />
-    ))
-    .add("Tuesday", () => (
-      <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
-    ))
-    .add("Wednesday", () => (
-        <DayList days={days} day={"Wednesday"} setDay={action("setDay")} />
-    ));
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
+  })
+  .add("Monday", () => (
+    <DayList days={days} value={"Monday"} onChange={action("setDay")} />
+  ))
+  .add("Tuesday", () => (
+    <DayList days={days} value={"Tuesday"} onChange={action("setDay")} />
+  ))
+  .add("Wednesday", () => (
+    <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />
+  ));
     const interviewer = {
       id: 1,
       name: "Sylvia Palmer",
@@ -196,4 +197,20 @@ storiesOf("Button", module)
       onSave={action('onSave')}
       onCancel={action('onCancel')}
     />
-  ));
+  ))
+  .add("Appointment Empty", () => (
+    <Fragment>
+      <Appointment id={1} time="4pm" />
+      <Appointment time="5pm" />
+    </Fragment>
+  ))
+  .add("Appointment Booked", () => (
+    <Fragment>
+      <Appointment
+        id={1}
+        time="4pm"
+        interview={{ student: "Lydia Miller-Jones", interviewer }}
+      />
+      <Appointment key="last" time="5pm" />
+    </Fragment>
+  ))

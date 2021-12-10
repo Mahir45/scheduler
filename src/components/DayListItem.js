@@ -4,12 +4,14 @@ import classNames from "classnames";
 
 
 export default function DayListItem(props) {
-  let dayClass = classNames('day-list__item',{
+  const {name, spots, setDay} = props
+  let arr = {
     
     "day-list__item--selected" : props.selected,
     "day-list__item--full" : props.spots === 0
 
-  })
+  }
+  let dayClass = classNames('day-list__item',arr)
   const formatSpots = (spots) => {
     if (spots === 0) {
       return "no spots remaining"
@@ -19,10 +21,8 @@ export default function DayListItem(props) {
       return `${spots} spots remaining`
     }
   }
- 
-  const {name, spots} = props
   return (
-    <li className={dayClass} onClick =  {() => props.setDay(name)}>
+    <li className={dayClass} onClick ={() => setDay(name)}>
       
       <h2  className="text--regular">{name}</h2> 
       <h3 
