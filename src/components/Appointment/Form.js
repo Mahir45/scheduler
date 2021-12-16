@@ -8,19 +8,15 @@ function Form(props) {
   const [name, setName] = useState(props.name || '');
   const [error, setError] = useState('');
 
-  function validate() {
-    if (!name) {
-      setError('Student name cannot be blank');
-      return;
-    }
-    if (!interviewer) {
-      setError('Please select an interviewer');
-      return;
-    }
-
-    setError('');
-    props.onSave(name, interviewer);
+ function validate() {
+  if (name === "") {
+    setError("Student name cannot be blank");
+    return;
   }
+
+  setError("");
+  props.onSave(name, interviewer);
+}
 
     // Reset details; passed to cancel
     const reset = function() {
@@ -36,7 +32,7 @@ function Form(props) {
   return (
     <main className="appointment__card appointment__card--create">
   <section className="appointment__card-left">
-    <form autoComplete={event => event.preventDefault()}>
+    <form onSubmit={event => event.preventDefault()}>
       <input
         className="appointment__create-input text--semi-bold"
         name="name"
